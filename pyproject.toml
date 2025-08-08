@@ -1,0 +1,12 @@
+[project]
+name = "conway-gen-ai"
+version = "0.1.0"
+description = "Conway Game Of Life GenAI applciation"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.116.1",
+    "openai>=1.99.5",
+    "requests>=2.32.4",
+    "streamlit>=1.48.0",
+]
