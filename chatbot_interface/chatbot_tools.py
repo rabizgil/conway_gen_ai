@@ -7,7 +7,7 @@ from nltk.corpus import words
 from nltk.data import path
 
 API_URL = "http://127.0.0.1:8000/cgol/game"
-NLTK_DATA = "C:\\Users\\rusla\\Dev\\conway_gen_ai\\chatbot_interface\\nltk_data"
+NLTK_DATA = ".\\nltk_data"
 path.append(NLTK_DATA)
 
 

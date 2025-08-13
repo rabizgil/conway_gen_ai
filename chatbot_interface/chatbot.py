@@ -36,7 +36,6 @@ class Chatbot:
 
     def __init__(self, reset_memory: bool) -> None:
         self.tools = [get_game_result, get_results_for_random_words]
-        # self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, streaming=True)
         self.llm = init_chat_model(model="openai:gpt-4o-mini")
 
         self.summary_node = SummarizationNode(
