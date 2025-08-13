@@ -43,9 +43,11 @@ def show_main_page(chatbot: Chatbot):
         st.session_state.history.append({"role": "user", "content": user_prompt})
 
         with st.chat_message("assistant"):
+
             response_placeholder = st.empty()
             full_response = []
-            for streamed in chatbot.stream(SummaryState(question=user_prompt)):
+            stream = chatbot.stream(SummaryState(messages=[user_prompt]))
+            for streamed in stream:
                 for chunk, metadata in streamed:
                     if not isinstance(chunk, AIMessageChunk):
                         continue
