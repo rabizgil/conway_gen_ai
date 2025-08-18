@@ -6,13 +6,11 @@ from langchain_core.tools import tool
 from nltk.corpus import words
 from nltk.data import path
 
-API_URL = "http://127.0.0.1:8000/cgol/game"
-NLTK_DATA = ".\\nltk_data"
-path.append(NLTK_DATA)
+path.append(os.environ["NLTK_DATA"])
 
 
 def request_game_result(payload: dict) -> str | dict:
-    response = requests.post(API_URL, json=payload, timeout=15)
+    response = requests.post(os.environ["API_URL"], json=payload, timeout=15)
     try:
         response.raise_for_status()
         response = response.json()

@@ -1,9 +1,13 @@
 # Conway Game of Life Chatbot and RESTful game service
 
-## Challenge
-To build a working implementation of CGoL as a RESTful service as poer MonumentAI challenge.
-Create a GenAI chat interface to communicate with the user, access RESTful service for results parsing
-specified words.
+## Description
+This repository contains a working implementation of Conway's Game of Life as a RESTful service.
+The service takes a word, converts it into an ASCII bitmap and centers it on a grid.
+The service returns max score as the total number of spawned cells, number of generations passed until stable state,
+and the reason to stop. <br>
+
+The repository also contains a GenAI chat interface app built with Streamlit.
+The agent is created with LangGraph and is able to access the REST service to parse the results basing on user requests.
 
 ## Approach
 * Read the challenge, think about the project structure. Define mandatory functions. Used ChatGPT for structured options.
