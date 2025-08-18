@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, HTTPException
 
 from .data_model import GameRequest, GameResponse
@@ -5,7 +6,7 @@ from .cgol_engine import GameOfLifeEngine
 from .db.db_service import SQLiteService
 
 router = APIRouter(prefix="/cgol")
-db_service = SQLiteService("./service/db/service.db")
+db_service = SQLiteService(os.environ["ENGINE_DB_URL"])
 
 @router.post("/game")
 async def run_game(request: GameRequest) -> GameResponse:

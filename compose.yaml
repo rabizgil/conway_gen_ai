@@ -1,0 +1,23 @@
+services:
+  api-service:
+    build:
+      context: ./
+      dockerfile: ./service/Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      - ENGINE_DB_URL=${ENGINE_DB_URL}
+  chatbot-interface:
+    build:
+      context: ./
+      dockerfile: ./chatbot_interface/Dockerfile
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - UI_DB_URL=${UI_DB_URL}
+      - API_URL=${API_URL}
+      - NLTK_DATA=${NLTK_DATA}
+    ports:
+      - 8501:8501
+    depends_on:
+      api-service:
+        condition: service_started

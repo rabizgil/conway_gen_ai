@@ -136,6 +136,7 @@ celerybeat.pid
 
 # Environments
 .env
+.*.env
 .envrc
 .venv
 .venv.*
@@ -217,3 +218,5 @@ __marimo__/
 .pre-commit-config.yaml
 
 test_book.ipynb
+
+nltk_data/
