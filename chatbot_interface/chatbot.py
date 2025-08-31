@@ -1,16 +1,19 @@
-from typing import Literal, Any, TypedDict
 from pathlib import Path
-
-from langgraph.prebuilt import ToolNode
-from langchain_openai import ChatOpenAI
-from langchain.chat_models import init_chat_model
-from langchain_core.messages import HumanMessage, SystemMessage, RemoveMessage, AnyMessage
-from langgraph.graph import MessagesState, StateGraph, START, END
-from langgraph.checkpoint.sqlite import SqliteSaver
-from langmem.short_term import SummarizationNode, RunningSummary, summarize_messages
+from typing import Any, Literal, TypedDict
 
 from chatbot_tools import get_game_result, get_results_for_random_words
-
+from langchain.chat_models import init_chat_model
+from langchain_core.messages import (
+    AnyMessage,
+    HumanMessage,
+    RemoveMessage,
+    SystemMessage,
+)
+from langchain_openai import ChatOpenAI
+from langgraph.checkpoint.sqlite import SqliteSaver
+from langgraph.graph import END, START, MessagesState, StateGraph
+from langgraph.prebuilt import ToolNode
+from langmem.short_term import RunningSummary, SummarizationNode, summarize_messages
 
 SYSTEM_PROMT = """
     You are a helpful and knowledgeable chatbot assistant.
@@ -43,7 +46,7 @@ class Chatbot:
             model=self.llm.bind(max_tokens=128),
             max_tokens=256,
             max_tokens_before_summary=528,
-            max_summary_tokens=128
+            max_summary_tokens=128,
         )
 
         self._setup_memory(reset_memory=reset_memory)

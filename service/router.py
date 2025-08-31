@@ -1,16 +1,18 @@
 import os
+
 from fastapi import APIRouter, HTTPException
 
-from .data_model import GameRequest, GameResponse
 from .cgol_engine import GameOfLifeEngine
+from .data_model import GameRequest, GameResponse
 from .db.db_service import SQLiteService
 
 router = APIRouter(prefix="/cgol")
-db_service = SQLiteService(os.environ["ENGINE_DB_URL"])
+
 
 @router.post("/game")
 async def run_game(request: GameRequest) -> GameResponse:
     word = request.word
+    db_service = SQLiteService(os.environ["ENGINE_DB_URL"])
 
     if not isinstance(word, str):
         raise HTTPException(status_code=400, detail="Provided word must be a string")
@@ -22,13 +24,13 @@ async def run_game(request: GameRequest) -> GameResponse:
     db_response = db_service.get_response(word)
     if db_response is None:
         engine = GameOfLifeEngine()
-        response = engine.run_from_word(word)
+        response = engine.run_from_word_cpp(word)
+        db_service.insert_response(word=word, response=response)
     else:
         response = GameResponse(
-            num_generations = db_response.num_generations,
-            score = db_response.score,
-            stop_reason = db_response.stop_reason
+            num_generations=db_response.num_generations,
+            score=db_response.score,
+            stop_reason=db_response.stop_reason,
         )
-        db_service.insert_response(word=word, response=response)
 
     return response
