@@ -1,8 +1,9 @@
+from argon2 import PasswordHasher
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from argon2 import PasswordHasher
 
-from .db_tables import User, Base
+from .db_tables import Base, User
+
 
 class SQLiteService:
 
@@ -21,7 +22,7 @@ class SQLiteService:
 
         try:
             user_match = session.query(User).filter_by(username=username).first()
-            if self.password_hasher.verify(user_match.password, password): # type: ignore
+            if self.password_hasher.verify(user_match.password, password):  # type: ignore
                 matched = True
         except Exception as e:
             session.rollback()

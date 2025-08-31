@@ -4,9 +4,10 @@ import random
 import requests
 from langchain_core.tools import tool
 from nltk.corpus import words
-from nltk.data import path
 
-path.append(os.environ["NLTK_DATA"])
+# from nltk.data import path
+
+# path.append(os.environ["NLTK_DATA"])
 
 
 def request_game_result(payload: dict) -> str | dict:
@@ -23,6 +24,7 @@ def request_game_result(payload: dict) -> str | dict:
 
     return response
 
+
 @tool
 def get_game_result(word: str):
     """
@@ -37,6 +39,7 @@ def get_game_result(word: str):
     payload = {"word": word}
     response = request_game_result(payload)
     return response
+
 
 @tool
 def get_results_for_random_words(n_words: int):

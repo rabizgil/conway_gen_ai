@@ -1,8 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from .db_tables import GameData, Base
 from ..data_model import GameResponse
+from .db_tables import Base, GameData
+
 
 class SQLiteService:
 
@@ -14,16 +15,15 @@ class SQLiteService:
 
         self.Session = sessionmaker(bind=self.engine)
 
-
     def insert_response(self, word: str, response: GameResponse):
         session = self.Session()
 
         try:
             game_data = GameData(
-                word = word,
-                num_generations = response.num_generations,
-                score = response.score,
-                stop_reason = response.stop_reason,
+                word=word,
+                num_generations=response.num_generations,
+                score=response.score,
+                stop_reason=response.stop_reason,
             )
             session.add(game_data)
             session.commit()
