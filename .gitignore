@@ -214,9 +214,10 @@ __marimo__/
 # Database files
 *.db
 
-# Pre-commit
-.pre-commit-config.yaml
-
 test_book.ipynb
 
 nltk_data/
+
+*.exe
+
+.vscode/
